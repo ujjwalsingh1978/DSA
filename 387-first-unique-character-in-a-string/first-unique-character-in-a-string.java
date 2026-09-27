@@ -1,20 +1,19 @@
 class Solution {
     public int firstUniqChar(String s) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        
-        for(int i=0; i<s.length(); i++){
-            char ch = s.charAt(i);
-            if(!map.containsKey(ch)) map.put(ch, 1);
-            else{
-                int freq = map.get(ch);
-                map.put(ch , freq+1);
+        int[] freq = new int[26];
+
+        // Count frequency
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+        }
+
+        // Find first character with frequency 1
+        for (int i = 0; i < s.length(); i++) {
+            if (freq[s.charAt(i) - 'a'] == 1) {
+                return i;
             }
         }
-        for(int j =0; j<s.length(); j++){
-            char ele = s.charAt(j);
-            if(map.get(ele) == 1) return j;
-        }
-        return -1;
 
+        return -1;
     }
 }
